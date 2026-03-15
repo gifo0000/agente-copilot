@@ -2,115 +2,90 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Guía de Gestión AI y Doble Factor de Autenticación</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guía completa sobre Gestión AI, configuración de Doble Factor de Autenticación (MFA) para Office 365, instalación de VPN ARCO2 y solicitud de usuarios HCIS.">
+    
+    <title>Gestión AI - Doble Factor de Autenticación y Guía VPN</title>
     <style>
-        body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 20px auto; padding: 0 20px; }
-        h2 { color: #0056b3; border-bottom: 2px solid #0056b3; padding-bottom: 5px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 20px auto; padding: 0 20px; }
+        h2 { color: #0056b3; border-bottom: 2px solid #0056b3; padding-bottom: 5px; margin-top: 40px; }
         h3 { color: #2c3e50; margin-top: 25px; }
-        ul { margin-bottom: 20px; }
+        ul, ol { margin-bottom: 20px; }
         li { margin-bottom: 8px; }
-        .info-box { background-color: #f4f7f9; border-left: 5px solid #0056b3; padding: 15px; margin: 20px 0; }
-        hr { border: 0; border-top: 1px solid #ccc; margin: 40px 0; }
-        code { background: #eee; padding: 2px 4px; border-radius: 4px; }
+        .info-box { background-color: #f4f7f9; border-left: 5px solid #0056b3; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        hr { border: 0; border-top: 1px solid #eee; margin: 40px 0; }
+        code { background: #f0f0f0; padding: 2px 5px; border-radius: 4px; font-family: monospace; font-size: 0.9em; }
+        a { color: #0056b3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
+    <header>
+        <h1>Guía de Autenticación y Acceso Remoto</h1>
+    </header>
+
     <section id="gestion-ai">
         <h2>Nuevas indicaciones incorporadas de "Gestión AI - Doble factor de autenticación"</h2>
         <ul>
-            <li>El sistema permite restablecer la contraseña de acceso al ordenador, HCIS, correo electrónico corporativo sin contactar con CESUS, utilizando métodos como <strong>SMS, Microsoft Authenticator, correo electrónico y clave privada/token</strong>.</li>
-            <li>Para habilitar el doble factor de autenticación, accede al <strong>Portal Cesus</strong>, selecciona "Configurar MFA GestionAI", e introduce usuario (DNI/NIE) y contraseña.</li>
-            <li>Tras aceptar la protección de datos, añade un método de autenticación:
+            <li>El sistema permite restablecer contraseñas (Ordenador, HCIS, Correo) de forma autónoma mediante <strong>SMS, Microsoft Authenticator, correo externo o clave privada</strong>.</li>
+            <li><strong>Configuración:</strong> Accede al Portal Cesus > "Configurar MFA GestionAI" e identifica con DNI/NIE.</li>
+            <li><strong>Métodos disponibles:</strong>
                 <ul>
-                    <li><strong>Microsoft Authenticator:</strong> app móvil con códigos QR para descargar; notificación y confirmación de registro.</li>
-                    <li><strong>Código SMS:</strong> introduce teléfono para recibir código de confirmación; confirma y recibe email automático.</li>
-                    <li><strong>Correo electrónico:</strong> debe ser externo, no corporativo; confirma y recibe email automático.</li>
-                    <li><strong>Clave privada/token:</strong> genera 12 posiciones con caracteres; introduce los solicitados para validar; confirma y recibe email automático.</li>
+                    <li><strong>Microsoft Authenticator:</strong> Uso de códigos QR y notificaciones push.</li>
+                    <li><strong>Código SMS:</strong> Introducción de teléfono móvil para validación.</li>
+                    <li><strong>Correo electrónico:</strong> Obligatorio que sea una cuenta <em>externa</em> (no corporativa).</li>
+                    <li><strong>Clave privada/token:</strong> Generación de 12 posiciones para validación manual.</li>
                 </ul>
             </li>
-            <li>Para dudas durante el proceso, contactar con <strong>CESUS</strong> vía <a href="https://portalcesus.salud.madrid.org/">portalcesus.salud.madrid.org</a> o con el Servicio de Informática por correo <code>inform.hupa@salud.madrid.org</code>.</li>
-            <li>Se recomienda consultar el manual y la sección de Preguntas Frecuentes de la intranet.</li>
         </ul>
+        <div class="info-box">
+            Soporte Técnico: <a href="https://portalcesus.salud.madrid.org/">Portal CESUS</a> o vía email: <code>inform.hupa@salud.madrid.org</code>.
+        </div>
     </section>
 
     <hr>
 
     <section id="mfa-office-365">
         <h2>Doble Factor MFA Office 365</h2>
-        <p><strong>¿Qué es MFA?</strong> La Autenticación Multifactor permite usar un segundo factor de seguridad, normalmente contraseña y teléfono móvil registrado. Se configura en servicios de Madrid Digital.</p>
+        <p>El <strong>MFA (Multi-Factor Authentication)</strong> añade una capa de seguridad extra combinando algo que sabes (contraseña) con algo que tienes (móvil).</p>
         
-        <h3>Factores disponibles:</h3>
-        <ul>
-            <li><strong>Algo que sabes:</strong> usuario y contraseña, PIN.</li>
-            <li><strong>Algo que tienes:</strong> móvil, tarjeta de coordenadas.</li>
-            <li><strong>Algo que eres:</strong> huella digital, reconocimiento facial.</li>
-        </ul>
-
-        <h3>Métodos configurables con móvil:</h3>
+        <h3>Proceso de enrolamiento:</h3>
         <ol>
-            <li><strong>Microsoft Authenticator:</strong> notificación y código OTP.</li>
-            <li><strong>Llamada telefónica:</strong> recibe llamada y pulsa #.</li>
-            <li><strong>SMS:</strong> recibe código y lo introduce.</li>
+            <li>Inicia sesión en <a href="https://www.office.com/">www.office.com</a>.</li>
+            <li>En <strong>Información de Seguridad</strong>, selecciona "Agregar método de inicio de sesión".</li>
+            <li>Sigue los pasos para vincular <strong>Microsoft Authenticator</strong> mediante el escaneo del código QR.</li>
+            <li>Configura un método secundario (teléfono) para recuperación.</li>
         </ol>
-
-        <h3>Proceso de enrolamiento MFA:</h3>
-        <ol>
-            <li>Accede a <a href="https://www.office.com/">www.office.com</a>.</li>
-            <li>Introduce usuario y contraseña.</li>
-            <li>Accede a "Ver cuenta" y luego "Actualizar información" en <strong>Información de Seguridad</strong>.</li>
-            <li>Selecciona "Agregar método de inicio de sesión".</li>
-            <li>Instala Microsoft Authenticator en el móvil y escanea el código QR generado.</li>
-            <li>Aprueba la notificación en el móvil.</li>
-            <li>Añade el teléfono móvil como método adicional y selecciona el método predeterminado.</li>
-        </ol>
-
-        <h3>Gestión de métodos:</h3>
-        <ul>
-            <li>Puedes gestionar, cambiar y añadir métodos en "Información de Seguridad".</li>
-            <li>Para cambiar el método predeterminado, selecciónalo en la lista de métodos.</li>
-            <li>Para añadir otro, pulsa "Agregar método de inicio de sesión".</li>
-        </ul>
-        <p><em>Incidencias: consulta la guía adjunta o contacta con soporte informático.</em></p>
     </section>
 
     <hr>
 
     <section id="guia-vpn">
-        <h2>Guía Adjunta: VPN Sanidad - Guía de Instalación</h2>
-        <p>El servicio de acceso remoto <strong>ARCO2</strong> permite conectar con los recursos corporativos de la Consejería de Sanidad utilizando el cliente <strong>PaloAlto GlobalProtect</strong> sobre Windows 10.</p>
+        <h2>Guía de Instalación: VPN Sanidad (ARCO2)</h2>
+        <p>Utiliza <strong>PaloAlto GlobalProtect</strong> para conectar de forma segura a los recursos de la Consejería de Sanidad.</p>
 
-        <div class="info-box">
-            <strong>Requisitos:</strong> Portátil corporativo unido a dominio, usuario autorizado en el grupo de DA, enrolamiento previo en 2FA Microsoft y privilegios de instalación.
-        </div>
-
-        <h3>Instalación resumida:</h3>
+        <h3>Pasos para la conexión:</h3>
         <ol>
-            <li>Accede al portal <a href="https://arco2.ar.madrid.org/">arco2.ar.madrid.org</a>.</li>
-            <li>Descarga e ejecuta el instalador de GlobalProtect (opciones por defecto).</li>
-            <li>Al finalizar, inicia el Agente GlobalProtect.</li>
+            <li>Descarga el cliente desde <a href="https://arco2.ar.madrid.org/">arco2.ar.madrid.org</a>.</li>
+            <li>Instala el agente en tu equipo Windows 10 con privilegios de administrador.</li>
+            <li>En el portal del agente, escribe: <code>arco2.ar.madrid.org</code>.</li>
+            <li>Valida con tus credenciales de dominio <code>salud.madrid.org</code> y tu segundo factor (MFA).</li>
         </ol>
-
-        <h3>Para conectar:</h3>
-        <ol>
-            <li>En GlobalProtect, introduce la URL: <code>arco2.ar.madrid.org</code>.</li>
-            <li>Introduce tu usuario y contraseña del dominio <code>salud.madrid.org</code>.</li>
-            <li>Introduce el <strong>segundo factor</strong> (App, llamada o SMS).</li>
-            <li>El icono cambiará a azul claro cuando esté conectado.</li>
-        </ol>
-
-        <p>Si hay errores, revisa los mensajes de conformidad de seguridad o exporta los <strong>Logs de depuración</strong> desde el menú de configuración si el soporte lo solicita.</p>
     </section>
 
     <hr>
 
-    <section id="hcis">
+    <section id="solicitud-hcis">
         <h2>Instrucciones para solicitar usuarios para HCIS</h2>
-        <ol>
-            <li>El responsable, jefe o supervisor/a deberá enviar un correo a <code>inform.hupa@salud.madrid.org</code> solicitando el acceso.</li>
-            <li>Deberá indicar <strong>DNI o NIE</strong> y <strong>categoría</strong> del empleado.</li>
-            <li>Es aconsejable indicar el DNI de un usuario de referencia que ya tenga los mismos permisos y perfil deseado.</li>
-        </ol>
+        <div class="info-box">
+            <p>El responsable o supervisor debe enviar la solicitud a <code>inform.hupa@salud.madrid.org</code> incluyendo:</p>
+            <ol>
+                <li>DNI o NIE del empleado.</li>
+                <li>Categoría profesional.</li>
+                <li><strong>Recomendado:</strong> DNI de un usuario de referencia con el mismo perfil de acceso.</li>
+            </ol>
+        </div>
     </section>
 
 </body>
